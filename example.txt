@@ -1,0 +1,25 @@
+STRUCT(
+	add_object("example",400,300,100,100,600,800),
+	add_object("warrior",500,400,100,100,600,800),
+	set_objairfriction("example",0.8),
+	openwindow(800,600),
+	UNTIL(false,
+		IF(if_window_nowoperating,
+			IF(if_keyboard_pushed("D"),give_obj_force("example",5,0)),
+			IF(if_keyboard_pushed("A"),give_obj_force("example",-5,0)),
+			IF(if_keyboard_pushed("W"),give_obj_force("example",0,5)),
+			IF(if_keyboard_pushed("S"),give_obj_force("example",0,-5))
+		),
+		beginbatchdraw(),
+		update(),
+		puttext(
+			SUB(pushback_printed_x("example"),DIV(pushback_width("example"),2)),
+			SUB(pushback_printed_y("example"),DIV(pushback_height("example"),2)),
+			"example"
+		),
+		drawrect(),
+		flushbatchdraw(),
+		cleardevice(),
+		sleep(10)
+	)
+)
